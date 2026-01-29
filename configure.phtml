@@ -1,0 +1,32 @@
+<?php
+declare(strict_types=1);
+/** @var NtfyExtension $this */
+?>
+<small>
+	<?= _t('ext.ntfy.description') ?>
+</small>
+<form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post">
+	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+	<div class="form-group">
+		<label class="group-name" for="server"><?= _t('ext.ntfy.server') ?></label>
+		<div class="group-controls">
+			<input type="text" name="server" id="server" class="w100" value="<?= $this->getUserConfigurationValue('server') ?>" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name" for="default_topic"><?= _t('ext.ntfy.default_topic') ?></label>
+		<div class="group-controls">
+			<input type="text" name="default_topic" id="default_topic" class="w100" value="<?= $this->getUserConfigurationValue('default_topic') ?>" />
+		</div>
+	</div>
+
+	<!-- ---------------------[ SUBMIT & CANCEL ]-------------------------------------- -->
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+			<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+		</div>
+	</div>
+</form>
