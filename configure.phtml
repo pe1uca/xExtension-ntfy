@@ -22,6 +22,15 @@ declare(strict_types=1);
 		</div>
 	</div>
 
+	<div class="form-group">
+		<div class="group-controls">
+			<label class="checkbox" for="aggregate">
+				<input type="checkbox" name="aggregate" id="aggregate" value="1"<?= $this->getUserConfigurationValue('aggregate') ? ' checked="checked"' : '' ?> />
+				<?= _t('ext.ntfy.aggregate') ?>
+			</label>
+		</div>
+	</div>
+
 	<!-- ---------------------[ SUBMIT & CANCEL ]-------------------------------------- -->
 	<div class="form-group form-actions">
 		<div class="group-controls">

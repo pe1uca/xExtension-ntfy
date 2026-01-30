@@ -14,7 +14,7 @@ Once the extension has been installed and enabled, you can:
 
 # Next steps
 
-- [ ] Configuration to agregate notifications on default topic.  
+- [x] Configuration to aggregate notifications on default topic.  
 - [ ] Configuration to notify with unread articles.  
 - [ ] Configuration to disable feeds.  
 - [ ] Configuration for [ntfy.sh parameters](https://docs.ntfy.sh/publish/) suited for the flow.  

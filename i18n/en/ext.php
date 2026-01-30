@@ -5,5 +5,6 @@ return [
 		'description' => 'Allows to send notifications via ntfy.sh',
 		'server' => 'Server',
 		'default_topic' => 'Default topic',
+		'aggregate' => 'Aggregate on default topic',
 	],
 ];

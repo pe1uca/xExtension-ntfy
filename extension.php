@@ -33,6 +33,7 @@ class NtfyExtension extends Minz_Extension {
 
 		$config['server'] = trim(trim(Minz_Request::paramString("server")), '/');
 		$config['default_topic'] = trim(trim(Minz_Request::paramString("default_topic")), '/');
+		$config['aggregate'] = Minz_Request::paramBoolean("aggregate");
 
 		$this->setUserConfiguration($config);
 	}
@@ -70,20 +71,35 @@ class NtfyExtension extends Minz_Extension {
 		if (!$server || !$defaultTopic) return;
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$total = 0;
 
 		foreach ($this->cache as $feedId => $feedCount) {
 			$feed = $feedDAO->searchById($feedId);
-			$topic = $config['feeds'][$feedId]['topic'] ?? $defaultTopic;
+			$topic = $config['feeds'][$feedId]['topic'] ?? null;
+			if ($topic === null) {
+				if ($config['aggregate']) {
+					$total += $feedCount;
+					continue;
+				}
+				$topic = $defaultTopic;
+			}
 			$feedName = $feed->name();
-			$res = file_get_contents("$server/$topic", false, stream_context_create([
-				'http' => [
-					'method' => 'POST', // PUT also works
-					'header' => 'Content-Type: text/plain',
-					'content' => "'$feedName' has $feedCount new article(s)"
-				]
-			]));
-			$this->extensionLog($res);
+			$this->sendNotification("$server/$topic", "'$feedName' has $feedCount new article(s)");
 		}
+
+		if($config['aggregate'] && $total > 0) {
+			$this->sendNotification("$server/$defaultTopic", "Your feeds have $feedCount new article(s)");
+		}
+	}
+
+	private function sendNotification(string $url, string $content) {
+		file_get_contents($url, false, stream_context_create([
+			'http' => [
+				'method' => 'POST', // PUT also works
+				'header' => 'Content-Type: text/plain',
+				'content' => $content,
+			]
+		]));
 	}
 
 	public function jsVars(array $vars): array {

@@ -2,7 +2,7 @@
 	"name": "NtfyNotifications",
 	"author": "pe1uca",
 	"description": "Send notifications via ntfy",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"entrypoint": "Ntfy",
 	"type": "user"
 }
