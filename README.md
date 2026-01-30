@@ -21,3 +21,4 @@ Once the extension has been installed and enabled, you can:
 	- [ ] Priority (default and per feed).  
 	- [ ] Icons per feed.  
 	- [ ] Server authentication.  
+- [ ] Configuration per category.  
